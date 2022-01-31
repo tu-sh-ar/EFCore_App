@@ -6,25 +6,139 @@
         {
            var context = new SchoolContext();
 
-            //Create operation
+                                                           
             Student student = new Student();
-            student.Name = "Ravi";
-            //context.Add(student);
-            //context.SaveChanges();
+            byte userChoice = 0;
+            var id = 0;
+            var name = "";
+            const byte create = 1;
+            const byte update = 2;
+            const byte delete = 3;
+            const byte view = 4;
+            Console.WriteLine("************* Console App For Entity Framework Implementation ***************");
+            do
+            {
+                Console.WriteLine("List Of Operation To Do:- \n 1.Create \n 2.Update \n 3.Delete\n 4.View \n 5.Quit");
+                Console.WriteLine("Press Any Realative Number To Proceed");
+                try
+                {
+                    userChoice = byte.Parse(Console.ReadLine());
 
-            //Read Operation
-            var id = 1;
-            var studentData = context.Student.Where(s => id==1).ToList(); //First Method
+                }
+                catch
+                {
+                    Console.WriteLine("\n\t!Please Select From Option Above");
+                }
+
+                switch (userChoice) { 
+                    case 0 :    
+                        break;
+                    case create:
+                        
+                        Console.WriteLine("----Enter Student Name----");
+                          name = Console.ReadLine();
+                        student.Name = name;
+                        student.StudentId = id;
+                        Create(student);
+                        break;
+
+                    case update:
+                        Console.WriteLine("----Enter Student Id----");
+                        id = int.Parse(Console.ReadLine());
+                        Console.WriteLine("----Enter Name To Update----");
+                        name = Console.ReadLine();
+                        student.Name = name;
+                        student.StudentId = id;
+                        bool flagUpdate = Update(student);
+                        if (flagUpdate)
+                        {
+                            Console.WriteLine("Updated");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Sorry the record is not updated!");
+
+                        }
+                        break;
+
+                    case delete:
+                        Delete(student);
+                        break ;
+
+                    case view:
+                        Read();
+                        break;
 
 
-            //studentData= context.Student.ToList();                        Second Method
-            
-            
-            //var Data = context.Student.Find(id);                          Third Method
-            //Console.WriteLine("data = {0}",Data.Name);
-            foreach (var data in studentData){ 
-                Console.WriteLine(data.Name);
+
+
+                }
+
             }
+            while (userChoice != 5 || userChoice > 5);
+
+            
+
+           
+
+
+           
+        }
+        static bool Update(Student student)
+        {
+
+            using(var context = new SchoolContext())
+            {
+                try
+                {
+                    context.Student.Update(student);
+                    context.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    return false;
+                }
+            }
+            return true;
+            
+        }
+
+        static void Create(Student student)
+        {
+            using (var context = new SchoolContext())
+            {
+                context.Add(student);
+                context.SaveChanges();
+                Console.WriteLine("+++ Created +++") ;
+            }
+        }
+        static void Delete(Student student)
+        {
+            using (var context = new SchoolContext())
+            {
+                context.Remove(student);
+                context.SaveChanges();
+                Console.WriteLine("--- Deleted ---") ;
+            }
+        }
+       
+        static void Read()
+        {
+            using (var context = new SchoolContext())
+            {
+                
+                var studentData = context.Student.Where(s =>  true ).ToList();
+                //studentData= context.Student.ToList();                        Second Method
+
+
+                //var Data = context.Student.Find(id);                          Third Method
+                //Console.WriteLine("data = {0}",Data.Name);
+                foreach (var data in studentData)
+                {
+                    Console.WriteLine(data.Name);
+                }
+            }
+
         }
     }
 }
