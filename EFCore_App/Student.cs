@@ -15,7 +15,8 @@ namespace EFCore_App
         
         public string StudentName { get; set; }
 
-        [ForeignKey("CourseEnrolled")]
-        public int  CourseEnrolled { get; set; }
+        
+        
+       
     }
 }

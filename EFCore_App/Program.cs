@@ -211,7 +211,7 @@
                     break;
                 case create:
 
-                    Console.WriteLine("----Enter Student Name----");
+                    Console.WriteLine("----Enter Course Name----");
                     name = Console.ReadLine();
                     course.CourseName = name;
                     course.CourseId = id;
@@ -219,7 +219,7 @@
                     break;
 
                 case update:
-                    Console.WriteLine("----Enter Student Id----");
+                    Console.WriteLine("----Enter Course Id----");
                     id = int.Parse(Console.ReadLine());
                     Console.WriteLine("----Enter Name To Update----");
                     name = Console.ReadLine();
@@ -238,7 +238,7 @@
                     break;
 
                 case delete:
-                    Console.WriteLine("----Enter Student Id To Delete----");
+                    Console.WriteLine("----Enter Course Id To Delete----");
                     id = int.Parse(Console.ReadLine());
                     course.CourseId = id;
                     Delete(course);
