@@ -10,7 +10,7 @@
             Student student = new Student();
             byte userChoice = 0;
             var id = 0;
-            var name = "";
+            string name;
             const byte create = 1;
             const byte update = 2;
             const byte delete = 3;
@@ -18,8 +18,8 @@
             Console.WriteLine("************* Console App For Entity Framework Implementation ***************");
             do
             {
-                Console.WriteLine("List Of Operation To Do:- \n 1.Create \n 2.Update \n 3.Delete\n 4.View \n 5.Quit");
-                Console.WriteLine("Press Any Realative Number To Proceed");
+                Console.WriteLine("\nList Of Operation To Do:- \n 1.Create \n 2.Update \n 3.Delete\n 4.View \n 5.Quit");
+                Console.WriteLine("\nPress Any Realative Number To Proceed");
                 try
                 {
                     userChoice = byte.Parse(Console.ReadLine());
@@ -30,13 +30,14 @@
                     Console.WriteLine("\n\t!Please Select From Option Above");
                 }
 
-                switch (userChoice) { 
-                    case 0 :    
+                switch (userChoice)
+                {
+                    case 0:
                         break;
                     case create:
-                        
+
                         Console.WriteLine("----Enter Student Name----");
-                          name = Console.ReadLine();
+                        name = Console.ReadLine();
                         student.Name = name;
                         student.StudentId = id;
                         Create(student);
@@ -44,7 +45,7 @@
 
                     case update:
                         Console.WriteLine("----Enter Student Id----");
-                        id = int.Parse(Console.ReadLine());
+                        id = int.Parse( Console.ReadLine());
                         Console.WriteLine("----Enter Name To Update----");
                         name = Console.ReadLine();
                         student.Name = name;
@@ -62,8 +63,11 @@
                         break;
 
                     case delete:
+                        Console.WriteLine("----Enter Student Id To Delete----");
+                        id = int.Parse(Console.ReadLine());
+                        student.StudentId = id;
                         Delete(student);
-                        break ;
+                        break;
 
                     case view:
                         Read();
@@ -75,15 +79,9 @@
                 }
 
             }
-            while (userChoice != 5 || userChoice > 5);
-
-            
-
-           
-
-
-           
+            while (userChoice != 5 );
         }
+
         static bool Update(Student student)
         {
 
@@ -117,7 +115,9 @@
             using (var context = new SchoolContext())
             {
                 context.Remove(student);
+                
                 context.SaveChanges();
+                
                 Console.WriteLine("--- Deleted ---") ;
             }
         }
@@ -135,7 +135,7 @@
                 //Console.WriteLine("data = {0}",Data.Name);
                 foreach (var data in studentData)
                 {
-                    Console.WriteLine(data.Name);
+                    Console.WriteLine(data.StudentId+"  "+data.Name);
                 }
             }
 
