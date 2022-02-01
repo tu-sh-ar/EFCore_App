@@ -8,6 +8,7 @@ namespace EFCore_App
 {
     public  class Course
     {
+        
         public int CourseId { get; set; }
         public string CourseName { get; set; }
     }
